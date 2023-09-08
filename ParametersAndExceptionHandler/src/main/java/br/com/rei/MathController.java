@@ -37,6 +37,20 @@ public class MathController {
 		// Make subtraction if isNumeric = true
 		return convertToDouble(numberOne) - convertToDouble(numberTwo);
 	}
+	
+	@RequestMapping(value = "/multi/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double multi(
+			@PathVariable(value = "numberOne")String numberOne,
+			@PathVariable(value= "numberTwo") String numberTwo
+			) throws Exception {
+		
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new UnsupportedMathOperationException("Please set a numeric value!");
+		}
+		// Make subtraction if isNumeric = true
+		return convertToDouble(numberOne) * convertToDouble(numberTwo);
+	}
 
 	private Double convertToDouble(String strNum) {
 		if (strNum == null) return 0D;
