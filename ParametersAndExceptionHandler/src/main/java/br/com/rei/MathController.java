@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.rei.exceptions.UnsupportedMathOperationException;
+
 @RestController
 public class MathController {
 	
@@ -16,11 +18,25 @@ public class MathController {
 			) throws Exception {
 		
 			if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-				throw new Exception();
+				throw new UnsupportedMathOperationException("Please set a numeric value!");
 			}
 			// Make sum if isNumeric = true
 			return convertToDouble(numberOne) + convertToDouble(numberTwo);
 		}
+	
+	@RequestMapping(value = "/sub/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double sub(
+			@PathVariable(value = "numberOne")String numberOne,
+			@PathVariable(value= "numberTwo") String numberTwo
+			) throws Exception {
+		
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new UnsupportedMathOperationException("Please set a numeric value!");
+		}
+		// Make subtraction if isNumeric = true
+		return convertToDouble(numberOne) - convertToDouble(numberTwo);
+	}
 
 	private Double convertToDouble(String strNum) {
 		if (strNum == null) return 0D;
