@@ -1,14 +1,18 @@
-package br.com.rei;
+package br.com.rei.controllers;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.rei.converter.Converter;
 import br.com.rei.exceptions.UnsupportedMathOperationException;
+import br.com.rei.math.MathFunctions;
 
 @RestController
 public class MathController {
+	
+	MathFunctions math = new MathFunctions();
 	
 	@RequestMapping(value = "/sum/{numberOne}/{numberTwo}",
 			method=RequestMethod.GET)
@@ -17,11 +21,11 @@ public class MathController {
 			@PathVariable(value= "numberTwo") String numberTwo
 			) throws Exception {
 		
-			if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			if(!Converter.isNumeric(numberOne) || !Converter.isNumeric(numberTwo)) {
 				throw new UnsupportedMathOperationException("Please set a numeric value!");
 			}
-			// Make sum if isNumeric = true
-			return convertToDouble(numberOne) + convertToDouble(numberTwo);
+			// Make sum if Converter.isNumeric = true
+			return math.sum(Converter.convertToDouble(numberOne), Converter.convertToDouble(numberTwo));
 		}
 	
 	@RequestMapping(value = "/sub/{numberOne}/{numberTwo}",
@@ -31,11 +35,11 @@ public class MathController {
 			@PathVariable(value= "numberTwo") String numberTwo
 			) throws Exception {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!Converter.isNumeric(numberOne) || !Converter.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
-		// Make subtraction if isNumeric = true
-		return convertToDouble(numberOne) - convertToDouble(numberTwo);
+		// Make subtraction if Converter.isNumeric = true
+		return math.sub(Converter.convertToDouble(numberOne), Converter.convertToDouble(numberTwo));
 	}
 	
 	@RequestMapping(value = "/multi/{numberOne}/{numberTwo}",
@@ -45,11 +49,11 @@ public class MathController {
 			@PathVariable(value= "numberTwo") String numberTwo
 			) throws Exception {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!Converter.isNumeric(numberOne) || !Converter.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
-		// Make multiplication if isNumeric = true
-		return convertToDouble(numberOne) * convertToDouble(numberTwo);
+		// Make multiplication if Converter.isNumeric = true
+		return math.multi(Converter.convertToDouble(numberOne), Converter.convertToDouble(numberTwo));
 	}
 	
 	@RequestMapping(value = "/div/{numberOne}/{numberTwo}",
@@ -59,11 +63,11 @@ public class MathController {
 			@PathVariable(value= "numberTwo") String numberTwo
 			) throws Exception {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!Converter.isNumeric(numberOne) || !Converter.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
-		// Make division if isNumeric = true
-		return convertToDouble(numberOne) / convertToDouble(numberTwo);
+		// Make division if Converter.isNumeric = true
+		return math.div(Converter.convertToDouble(numberOne), Converter.convertToDouble(numberTwo));
 	}
 	
 	@RequestMapping(value = "/avg/{numberOne}/{numberTwo}",
@@ -73,11 +77,11 @@ public class MathController {
 			@PathVariable(value= "numberTwo") String numberTwo
 			) throws Exception {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!Converter.isNumeric(numberOne) || !Converter.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
-		// Make average if isNumeric = true
-		return ((convertToDouble(numberOne) + convertToDouble(numberTwo)) / 2);
+		// Make average if Converter.isNumeric = true
+		return math.avg(Converter.convertToDouble(numberOne), Converter.convertToDouble(numberTwo));
 	}
 	
 	@RequestMapping(value = "/sqr/{numberOne}",
@@ -86,26 +90,10 @@ public class MathController {
 			@PathVariable(value = "numberOne")String numberOne
 			) throws Exception {
 		
-		if(!isNumeric(numberOne)) {
+		if(!Converter.isNumeric(numberOne)) {
 			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
-		// Make square root if isNumeric = true
-		return Math.sqrt(convertToDouble(numberOne));
-	}
-
-	private Double convertToDouble(String strNum) {
-		if (strNum == null) return 0D;
-		// Convert "," to "."
-		String number = strNum.replaceAll(",", ".");
-		if (isNumeric(number)) return Double.parseDouble(number);
-		return 0D;
-	}
-
-	private boolean isNumeric(String strNum) {
-		if (strNum == null) return false;
-		// Convert "," to "."
-		String number = strNum.replaceAll(",", ".");
-		// Regex to check if is numeric
-		return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+		// Make square root if Converter.isNumeric = true
+		return math.sqr(Converter.convertToDouble(numberOne));
 	}
 }
