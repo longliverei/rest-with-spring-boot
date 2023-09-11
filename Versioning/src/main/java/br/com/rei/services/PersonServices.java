@@ -9,6 +9,7 @@ import br.com.rei.data.vo.v1.PersonVO;
 import br.com.rei.data.vo.v2.PersonVOV2;
 import br.com.rei.exceptions.ResourceNotFoundException;
 import br.com.rei.mapper.Mapper;
+import br.com.rei.mapper.custom.PersonMapper;
 import br.com.rei.models.Person;
 import br.com.rei.repositories.PersonRepository;
 
@@ -17,6 +18,9 @@ public class PersonServices {
 	
 	@Autowired
 	PersonRepository repository;
+	
+	@Autowired
+	private PersonMapper customMapper;
 	
 	public List<PersonVO> findAll() {
 		return Mapper.parseListObjects(repository.findAll(), PersonVO.class);
@@ -38,9 +42,9 @@ public class PersonServices {
 	}
 	
 	public PersonVOV2 createV2(PersonVOV2 person) {		
-		var entity = Mapper.parseObject(person, Person.class);
+		var entity = customMapper.convertVoToEntity(person);
 		
-		var vo = Mapper.parseObject(repository.save(entity), PersonVOV2.class);
+		var vo = customMapper.convertEntityToVo(repository.save(entity));
 		
 		return vo;	
 	}
