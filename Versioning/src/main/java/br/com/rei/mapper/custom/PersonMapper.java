@@ -17,6 +17,7 @@ public class PersonMapper {
 		vo.setBirthDay(new Date());
 		vo.setFirstName(person.getFirstName());
 		vo.setLastName(person.getLastName());
+		vo.setGender(person.getGender());
 		
 		return vo;
 	}
@@ -28,6 +29,7 @@ public class PersonMapper {
 		//entity.setBirthDay(new Date());
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
+		entity.setGender(person.getGender());
 		
 		return entity;
 	}
