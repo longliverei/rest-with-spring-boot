@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.rei.data.vo.v1.PersonVO;
 import br.com.rei.exceptions.ResourceNotFoundException;
+import br.com.rei.mapper.Mapper;
 import br.com.rei.models.Person;
 import br.com.rei.repositories.PersonRepository;
 
@@ -17,21 +18,27 @@ public class PersonServices {
 	PersonRepository repository;
 	
 	public List<PersonVO> findAll() {
-		return repository.findAll();
+		return Mapper.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 	
 	public PersonVO findById(Long id) {
-		return repository.findById(id)
+		var entity= repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		
+		return Mapper.parseObject(entity, PersonVO.class);
 	}
 	
 	public PersonVO create(PersonVO person) {		
-		return repository.save(person);
+		var entity = Mapper.parseObject(person, Person.class);
+		
+		var vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
+		
+		return vo;	
 	}
 	
 	public PersonVO update(PersonVO person) {
 		
-		PersonVO entity = repository.findById(person.getId())
+		var entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
 		entity.setId(person.getId());
@@ -40,12 +47,14 @@ public class PersonServices {
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(entity);
+		var vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
+		
+		return vo;	
 	}
 	
 	public void delete(Long id) {
 		
-		PersonVO entity = repository.findById(id)
+		var entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
 		repository.delete(entity);
