@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.rei.data.vo.v1.PersonVO;
+import br.com.rei.data.vo.v2.PersonVOV2;
 import br.com.rei.exceptions.ResourceNotFoundException;
 import br.com.rei.mapper.Mapper;
 import br.com.rei.models.Person;
@@ -32,6 +33,14 @@ public class PersonServices {
 		var entity = Mapper.parseObject(person, Person.class);
 		
 		var vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
+		
+		return vo;	
+	}
+	
+	public PersonVOV2 createV2(PersonVOV2 person) {		
+		var entity = Mapper.parseObject(person, Person.class);
+		
+		var vo = Mapper.parseObject(repository.save(entity), PersonVOV2.class);
 		
 		return vo;	
 	}
