@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rei.data.vo.v1.PersonVO;
-import br.com.rei.models.Person;
 import br.com.rei.services.PersonServices;
 
 @RestController
