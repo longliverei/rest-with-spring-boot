@@ -1,1 +1,1 @@
-INSERT INTO `person` VALUES (3,'São Mateus','Rei','Male','Yabiku'),(5,'zl fio','Reinaldo','Male','Yabiku'),(6,'zl fio','Reinaldo','Male','Yabiku');
+INSERT INTO `person` VALUES (3,'Rei','Yabiku','São Mateus','Male'),(5,'Reinaldo','Yabiku','zl fio','Male'),(6,'testname','testsurname','zl fio','Female');
