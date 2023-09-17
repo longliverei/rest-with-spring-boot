@@ -3,8 +3,11 @@ package br.com.rei.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
+import br.com.rei.controllers.PersonController;
 import br.com.rei.data.dto.v1.PersonDto;
 import br.com.rei.exceptions.ResourceNotFoundException;
 import br.com.rei.mapper.PersonMapper;
@@ -28,7 +31,10 @@ public class PersonServices {
 		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
-		return personMapper.personToPersonDto(entity);
+		PersonDto dto = personMapper.personToPersonDto(entity);
+		dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		
+		return dto;
 	}
 	
 	public PersonDto create(PersonDto person) {		
