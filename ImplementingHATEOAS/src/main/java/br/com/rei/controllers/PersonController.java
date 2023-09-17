@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.rei.data.vo.v1.PersonVO;
+import br.com.rei.data.dto.v1.PersonDto;
 import br.com.rei.services.PersonServices;
 import br.com.rei.util.MediaType;
 
@@ -26,27 +26,27 @@ public class PersonController {
 	
 	@GetMapping(
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	public List<PersonVO> findAll() {
+	public List<PersonDto> findAll() {
 		return service.findAll();
 	}
 	
 	@GetMapping(value = "/{id}",
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	public PersonVO findById(@PathVariable("id") Long id) {
+	public PersonDto findById(@PathVariable("id") Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping(
 			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	public PersonVO create(@RequestBody PersonVO person) {
+	public PersonDto create(@RequestBody PersonDto person) {
 		return service.create(person);
 	}
 	
 	@PutMapping(			
 			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	public PersonVO update(@RequestBody PersonVO person) {
+	public PersonDto update(@RequestBody PersonDto person) {
 		return service.update(person);
 	}
 	

@@ -5,56 +5,58 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.rei.data.vo.v1.PersonVO;
+import br.com.rei.data.dto.v1.PersonDto;
 import br.com.rei.exceptions.ResourceNotFoundException;
-import br.com.rei.mapper.Mapper;
+import br.com.rei.mapper.PersonMapper;
 import br.com.rei.models.Person;
 import br.com.rei.repositories.PersonRepository;
 
 @Service
 public class PersonServices {
+
+	@Autowired
+	private PersonRepository repository;
 	
 	@Autowired
-	PersonRepository repository;
+	private PersonMapper personMapper;
 	
-	public List<PersonVO> findAll() {
-		return Mapper.parseListObjects(repository.findAll(), PersonVO.class);
+	public List<PersonDto> findAll() {
+		return personMapper.personsToPersonsDto(repository.findAll());
 	}
 	
-	public PersonVO findById(Long id) {
-		var entity= repository.findById(id)
+	public PersonDto findById(Long id) {
+		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
-		return Mapper.parseObject(entity, PersonVO.class);
+		return personMapper.personToPersonDto(entity);
 	}
 	
-	public PersonVO create(PersonVO person) {		
-		var entity = Mapper.parseObject(person, Person.class);
+	public PersonDto create(PersonDto person) {		
+		Person entity = personMapper.personDtoToPerson(person);
 		
-		var vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
+		PersonDto vo = personMapper.personToPersonDto(repository.save(entity));
 		
 		return vo;	
 	}
 	
-	public PersonVO update(PersonVO person) {
+	public PersonDto update(PersonDto person) {
 		
-		var entity = repository.findById(person.getId())
+		Person entity = repository.findById(person.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
-		entity.setId(person.getId());
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		var vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
+		PersonDto vo = personMapper.personToPersonDto(repository.save(entity));
 		
 		return vo;	
 	}
 	
 	public void delete(Long id) {
 		
-		var entity = repository.findById(id)
+		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
 		repository.delete(entity);
