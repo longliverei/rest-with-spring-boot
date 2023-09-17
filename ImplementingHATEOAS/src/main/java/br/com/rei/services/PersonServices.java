@@ -24,10 +24,18 @@ public class PersonServices {
 	private PersonMapper personMapper;
 	
 	public List<PersonDto> findAll() {
-		return personMapper.personsToPersonsDto(repository.findAll());
+		
+		List<PersonDto> dtoList = personMapper.personsToPersonsDto(repository.findAll());
+		
+		dtoList
+			.stream()
+			.forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+		
+		return dtoList;
 	}
 	
 	public PersonDto findById(Long id) {
+		
 		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
@@ -37,12 +45,14 @@ public class PersonServices {
 		return dto;
 	}
 	
-	public PersonDto create(PersonDto person) {		
+	public PersonDto create(PersonDto person) {
+		
 		Person entity = personMapper.personDtoToPerson(person);
 		
-		PersonDto vo = personMapper.personToPersonDto(repository.save(entity));
+		PersonDto dto = personMapper.personToPersonDto(repository.save(entity));
+		dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
 		
-		return vo;	
+		return dto;	
 	}
 	
 	public PersonDto update(PersonDto person) {
@@ -55,9 +65,9 @@ public class PersonServices {
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		PersonDto vo = personMapper.personToPersonDto(repository.save(entity));
-		
-		return vo;	
+		PersonDto dto = personMapper.personToPersonDto(repository.save(entity));
+		dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
+		return dto;	
 	}
 	
 	public void delete(Long id) {
