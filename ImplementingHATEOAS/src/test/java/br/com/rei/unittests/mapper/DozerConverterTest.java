@@ -6,13 +6,19 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.rei.data.dto.v1.PersonDto;
 import br.com.rei.mapper.PersonMapper;
+import br.com.rei.mapper.PersonMapperImpl;
 import br.com.rei.models.Person;
 import br.com.rei.unittests.mapper.mocks.MockPerson;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { PersonMapperImpl.class } )
 public class DozerConverterTest {
     
     MockPerson inputObject;
