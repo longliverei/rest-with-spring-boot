@@ -5,11 +5,15 @@ import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PersonDto extends RepresentationModel<PersonDto> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonProperty("id")
 	private Long key;
+	
 	private String firstName;
 	private String lastName;
 	private String address;
