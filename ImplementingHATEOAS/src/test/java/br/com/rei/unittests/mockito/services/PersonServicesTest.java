@@ -122,7 +122,13 @@ class PersonServicesTest {
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+		Person entity = input.mockEntity();
+		entity.setId(0L);
+		
+		when(repository.findById(entity.getId()))
+			.thenReturn(Optional.of(entity));
+		
+		service.delete(entity.getId());
 	}
 
 }
