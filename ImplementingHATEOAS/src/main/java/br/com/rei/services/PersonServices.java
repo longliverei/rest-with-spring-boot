@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.rei.controllers.PersonController;
 import br.com.rei.data.dto.v1.PersonDto;
+import br.com.rei.exceptions.RequiredObjectIsNullException;
 import br.com.rei.exceptions.ResourceNotFoundException;
 import br.com.rei.mapper.PersonMapper;
 import br.com.rei.models.Person;
@@ -47,6 +48,8 @@ public class PersonServices {
 	
 	public PersonDto create(PersonDto person) {
 		
+		if (person == null) throw new RequiredObjectIsNullException();
+		
 		Person entity = personMapper.personDtoToPerson(person);
 		
 		PersonDto dto = personMapper.personToPersonDto(repository.save(entity));
@@ -56,6 +59,8 @@ public class PersonServices {
 	}
 	
 	public PersonDto update(PersonDto person) {
+		
+		if (person == null) throw new RequiredObjectIsNullException();
 		
 		Person entity = repository.findById(person.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
