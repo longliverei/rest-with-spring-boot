@@ -2,7 +2,6 @@ package br.com.rei.unittests.mockito.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -53,26 +52,47 @@ class PersonServicesTest {
 	@Test
 	void testFindById() {
 		
-		Person person = input.mockEntity();
-		PersonDto personDto = input.mockVO();
+		Person entity = input.mockEntity();
+		PersonDto dto = input.mockVO();
+		entity.setId(0L);
 		
-		when(repository.findById(person.getId()))
-			.thenReturn(Optional.of(person));
-		when(personMapper.personToPersonDto(person))
-			.thenReturn(personDto);
+		when(repository.findById(entity.getId()))
+			.thenReturn(Optional.of(entity));
+		when(personMapper.personToPersonDto(entity))
+			.thenReturn(dto);
 		
-		PersonDto result = service.findById(person.getId());
+		PersonDto result = service.findById(entity.getId());
 		assertNotNull(result);
 		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());
 		assertTrue(result.toString().contains("links: [</api/person/v1/0>;rel=\"self\"]"));
 		assertThat(result)
-			.isSameAs(personDto);
+			.isSameAs(dto);
 	}
 
 	@Test
 	void testCreate() {
-		fail("Not yet implemented");
+		
+		Person entity = input.mockEntity();
+		Person persisted = input.mockEntity();
+		persisted.setId(0L);
+		
+		PersonDto dto = input.mockVO();
+		
+		when(personMapper.personDtoToPerson(dto))
+			.thenReturn(entity);
+		when(repository.save(entity))
+			.thenReturn(persisted);
+		when(personMapper.personToPersonDto(persisted))
+			.thenReturn(dto);
+		
+		PersonDto result = service.create(dto);
+		assertNotNull(result);
+		assertNotNull(result.getKey());
+		assertNotNull(result.getLinks());
+		assertTrue(result.toString().contains("links: [</api/person/v1/0>;rel=\"self\"]"));
+		assertThat(result)
+			.isSameAs(dto);
 	}
 
 	@Test
