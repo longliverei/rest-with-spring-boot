@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.rei.data.dto.v1.PersonDto;
+import br.com.rei.exceptions.RequiredObjectIsNullException;
 import br.com.rei.mapper.PersonMapper;
 import br.com.rei.models.Person;
 import br.com.rei.repositories.PersonRepository;
@@ -94,7 +95,19 @@ class PersonServicesTest {
 		assertThat(result)
 			.isSameAs(dto);
 	}
-
+	
+	@Test
+	void testCreateWithNullPerson() {
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+			service.create(null);
+		});
+		
+		String expectedMessage = "It's not allowed to persist a null object!";
+		String actualMessage = exception.getMessage();
+		
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
 	@Test
 	void testUpdate() {
 		
@@ -119,7 +132,19 @@ class PersonServicesTest {
 		assertThat(result)
 			.isSameAs(dto);
 	}
-
+	
+	@Test
+	void testUpdateWithNullPerson() {
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+			service.update(null);
+		});
+		
+		String expectedMessage = "It's not allowed to persist a null object!";
+		String actualMessage = exception.getMessage();
+		
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
 	@Test
 	void testDelete() {
 		Person entity = input.mockEntity();
