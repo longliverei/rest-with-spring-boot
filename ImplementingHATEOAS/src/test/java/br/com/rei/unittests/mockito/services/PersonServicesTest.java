@@ -74,7 +74,7 @@ class PersonServicesTest {
 	void testCreate() {
 		
 		Person entity = input.mockEntity();
-		Person persisted = input.mockEntity();
+		Person persisted = entity;
 		persisted.setId(0L);
 		
 		PersonDto dto = input.mockVO();
@@ -97,7 +97,27 @@ class PersonServicesTest {
 
 	@Test
 	void testUpdate() {
-		fail("Not yet implemented");
+		
+		Person entity = input.mockEntity();
+		Person persisted = entity;
+		persisted.setId(0L);
+		
+		PersonDto dto = input.mockVO();
+		
+		when(repository.findById(dto.getKey()))
+			.thenReturn(Optional.of(entity));
+		when(repository.save(entity))
+			.thenReturn(persisted);
+		when(personMapper.personToPersonDto(persisted))
+			.thenReturn(dto);
+		
+		PersonDto result = service.update(dto);
+		assertNotNull(result);
+		assertNotNull(result.getKey());
+		assertNotNull(result.getLinks());
+		assertTrue(result.toString().contains("links: [</api/person/v1/0>;rel=\"self\"]"));
+		assertThat(result)
+			.isSameAs(dto);
 	}
 
 	@Test
