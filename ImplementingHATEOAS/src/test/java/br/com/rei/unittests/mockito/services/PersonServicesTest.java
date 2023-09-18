@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,32 @@ class PersonServicesTest {
 
 	@Test
 	void testFindAll() {
-		fail("Not yet implemented");
+		List<Person> entities = input.mockEntityList();
+		List<PersonDto> dtoList = input.mockVOList();
+		
+		when(repository.findAll())
+			.thenReturn(entities);
+		when(personMapper.personsToPersonsDto(entities))
+			.thenReturn(dtoList);
+		
+		var people = service.findAll();
+		assertNotNull(people);
+		
+		var personOne = people.get(1);
+		personOne.setKey(1L);
+		
+		assertNotNull(personOne);
+		assertNotNull(personOne.getKey());
+		assertNotNull(personOne.getLinks());
+		assertTrue(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+		
+		var personSeven = people.get(7);
+		personSeven.setKey(7L);
+		
+		assertNotNull(personSeven);
+		assertNotNull(personSeven.getKey());
+		assertNotNull(personSeven.getLinks());
+		assertTrue(personSeven.toString().contains("links: [</api/person/v1/7>;rel=\"self\"]"));
 	}
 
 	@Test
