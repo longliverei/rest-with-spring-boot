@@ -39,10 +39,10 @@ public class PersonServices {
 		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
-		PersonDto dto = personMapper.personToPersonDto(entity);
-		dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		PersonDto personDto = personMapper.personToPersonDto(entity);
+		personDto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		
-		return dto;
+		return personDto;
 	}
 	
 	public PersonDto create(PersonDto person) {
