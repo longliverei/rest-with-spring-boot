@@ -1,6 +1,7 @@
 package br.com.rei.data.dto.v1;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -13,8 +14,8 @@ public class BookDto extends RepresentationModel<BookDto> implements Serializabl
 	
 
 	private String author;
-	private String launchDate;
-	private String price;
+	private Date launchDate;
+	private Double price;
 	private String title;
 	
 	public Long getKey() {
