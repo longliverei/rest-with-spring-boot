@@ -1,6 +1,7 @@
 package br.com.rei.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "books")
@@ -20,16 +23,17 @@ public class Book implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "author")
+	@Column(nullable = false, length = 150)
 	private String author;
 	
-	@Column(name = "launch_date")
-	private String launchDate;
+	@Column(name = "launch_date", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date launchDate;
 	
-	@Column(name = "price")
-	private String price;
+	@Column(nullable = false)
+	private Double price;
 	
-	@Column(name = "title")
+	@Column(nullable = false, length = 300)
 	private String title;
 
 	public Long getId() {
@@ -48,19 +52,19 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 
-	public String getLaunchDate() {
+	public Date getLaunchDate() {
 		return launchDate;
 	}
 
-	public void setLaunchDate(String launchDate) {
+	public void setLaunchDate(Date launchDate) {
 		this.launchDate = launchDate;
 	}
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -90,6 +94,7 @@ public class Book implements Serializable {
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-	
+
+
 	
 }
