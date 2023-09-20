@@ -11,7 +11,6 @@ public class BookDto extends RepresentationModel<BookDto> implements Serializabl
 	private static final long serialVersionUID = 1L;
 	
 	private Long key;
-	
 
 	private String author;
 	private Date launchDate;
@@ -21,30 +20,39 @@ public class BookDto extends RepresentationModel<BookDto> implements Serializabl
 	public Long getKey() {
 		return key;
 	}
+	
 	public void setKey(Long key) {
 		this.key = key;
 	}
+	
 	public String getAuthor() {
 		return author;
 	}
+	
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public String getLaunchDate() {
+	
+	public Date getLaunchDate() {
 		return launchDate;
 	}
-	public void setLaunchDate(String launchDate) {
+	
+	public void setLaunchDate(Date launchDate) {
 		this.launchDate = launchDate;
 	}
-	public String getPrice() {
+	
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	
+	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
 	public String getTitle() {
 		return title;
 	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -70,5 +78,4 @@ public class BookDto extends RepresentationModel<BookDto> implements Serializabl
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-
 }
