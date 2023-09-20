@@ -31,8 +31,8 @@ public class BookServices {
 		List<BookDto> dtoList = bookMapper.booksToBooksDto(bookRepository.findAll());
 		
 		dtoList
-		.stream()
-		.forEach(bookDto -> bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel()));
+			.stream()
+			.forEach(bookDto -> bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel()));
 		
 		return dtoList;
 	}
