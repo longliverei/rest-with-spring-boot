@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.rei.controllers.BookController;
 import br.com.rei.controllers.PersonController;
 import br.com.rei.data.dto.v1.BookDto;
 import br.com.rei.exceptions.RequiredObjectIsNullException;
@@ -31,7 +32,7 @@ public class BookServices {
 		
 		dtoList
 		.stream()
-		.forEach(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
+		.forEach(bookDto -> bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel()));
 		
 		return dtoList;
 	}
@@ -42,7 +43,7 @@ public class BookServices {
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
 		BookDto bookDto = bookMapper.bookToBookDto(entity);
-		bookDto.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel());
+		bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel());
 		
 		return bookDto;
 		
@@ -55,7 +56,7 @@ public class BookServices {
 		Book entity = bookMapper.bookDtoToBook(book);
 		
 		BookDto bookDto = bookMapper.bookToBookDto(bookRepository.save(entity));
-		bookDto.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel());
+		bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel());
 		
 		return bookDto;		
 	}
@@ -73,7 +74,7 @@ public class BookServices {
 		entity.setPrice(book.getPrice());
 		
 		BookDto bookDto = bookMapper.bookToBookDto(bookRepository.save(entity));
-		bookDto.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel());
+		bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel());
 		
 		return bookDto;
 	}
