@@ -19,7 +19,7 @@ import br.com.rei.unittests.mapper.mocks.MockPerson;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { PersonMapperImpl.class } )
-public class MapperTest {
+public class PersonMapperTest {
     
     MockPerson inputObject;
 
