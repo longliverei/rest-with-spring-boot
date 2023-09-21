@@ -1,6 +1,7 @@
 package br.com.rei.unittests.mapper.mocks;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.rei.data.dto.v1.BookDto;
@@ -36,7 +37,7 @@ public class MockBook {
     public Book mockEntity(Integer number) {
         Book book = new Book();
         book.setAuthor("Author" + number);
-        book.setLaunchDate("03-12-1996");
+        book.setLaunchDate(new Date());
         book.setTitle("Title" + number);
         book.setPrice(20.00 + number);
         return book;
@@ -45,7 +46,7 @@ public class MockBook {
     public BookDto mockVO(Integer number) {
         BookDto bookDto = new BookDto();
         bookDto.setAuthor("Author" + number);
-        bookDto.setLaunchDate("First Name Test" + number);
+        bookDto.setLaunchDate(new Date());
         bookDto.setTitle("Title" + number);
         bookDto.setKey(number.longValue());
         bookDto.setPrice(20.00 + number);

@@ -35,10 +35,9 @@ public class BookMapperTest {
     public void parseEntityToVOTest() {
     	BookDto output = bookMapper.bookToBookDto(inputObject.mockEntity());
         assertEquals(Long.valueOf(0L), output.getKey());
-        assertEquals("First Name Test0", output.getAuthor());
-        assertEquals("Last Name Test0", output.getLaunchDate());
+        assertEquals("Author0", output.getAuthor());
         assertEquals("Addres Test0", output.getTitle());
-        assertEquals("Male", output.getPrice());
+        assertEquals(20.00 + 0, output.getPrice());
     }
 
     @Test
@@ -47,36 +46,32 @@ public class BookMapperTest {
         BookDto outputZero = outputList.get(0);
         
         assertEquals(Long.valueOf(0L), outputZero.getKey());
-        assertEquals("First Name Test0", outputZero.getAuthor());
-        assertEquals("Last Name Test0", outputZero.getLaunchDate());
-        assertEquals("Addres Test0", outputZero.getTitle());
-        assertEquals("Male", outputZero.getPrice());
+        assertEquals("Author0", outputZero.getAuthor());
+        assertEquals("Title0", outputZero.getTitle());
+        assertEquals(20.00 + 0, outputZero.getPrice());
         
         BookDto outputSeven = outputList.get(7);
         
         assertEquals(Long.valueOf(7L), outputSeven.getKey());
-        assertEquals("First Name Test0", outputSeven.getAuthor());
-        assertEquals("Last Name Test0", outputSeven.getLaunchDate());
-        assertEquals("Addres Test0", outputSeven.getTitle());
-        assertEquals("Male", outputSeven.getPrice());
+        assertEquals("Author7", outputSeven.getAuthor());
+        assertEquals("Title7", outputSeven.getTitle());
+        assertEquals(20.00 + 7, outputSeven.getPrice());
         
         BookDto outputTwelve = outputList.get(12);
         
         assertEquals(Long.valueOf(12L), outputTwelve.getKey());
-        assertEquals("First Name Test0", outputTwelve.getAuthor());
-        assertEquals("Last Name Test0", outputTwelve.getLaunchDate());
-        assertEquals("Addres Test0", outputTwelve.getTitle());
-        assertEquals("Male", outputTwelve.getPrice());
+        assertEquals("Author12", outputTwelve.getAuthor());
+        assertEquals("Title12", outputTwelve.getTitle());
+        assertEquals(20.00 + 12, outputTwelve.getPrice());
     }
 
     @Test
     public void parseVOToEntityTest() {
         Book output = bookMapper.bookDtoToBook(inputObject.mockVO());
         assertEquals(Long.valueOf(0L), output.getId());
-        assertEquals("First Name Test0", output.getAuthor());
-        assertEquals("Last Name Test0", output.getLaunchDate());
-        assertEquals("Addres Test0", output.getTitle());
-        assertEquals("Male", output.getPrice());
+        assertEquals("Author0", output.getAuthor());
+        assertEquals("Title0", output.getTitle());
+        assertEquals(20.00 + 0, output.getPrice());
     }
 
     @Test
@@ -85,25 +80,22 @@ public class BookMapperTest {
         Book outputZero = outputList.get(0);
         
         assertEquals(Long.valueOf(0L), outputZero.getId());
-        assertEquals("First Name Test0", outputZero.getAuthor());
-        assertEquals("Last Name Test0", outputZero.getLaunchDate());
-        assertEquals("Addres Test0", outputZero.getTitle());
-        assertEquals("Male", outputZero.getPrice());
+        assertEquals("Author0", outputZero.getAuthor());
+        assertEquals("Title0", outputZero.getTitle());
+        assertEquals(20.00 + 0, outputZero.getPrice());
         
         Book outputSeven = outputList.get(7);
         
         assertEquals(Long.valueOf(7L), outputSeven.getId());
-        assertEquals("First Name Test0", outputSeven.getAuthor());
-        assertEquals("Last Name Test0", outputSeven.getLaunchDate());
-        assertEquals("Addres Test0", outputSeven.getTitle());
-        assertEquals("Male", outputSeven.getPrice());
+        assertEquals("Author7", outputSeven.getAuthor());
+        assertEquals("Title7", outputSeven.getTitle());
+        assertEquals(20.00 + 7, outputSeven.getPrice());
         
         Book outputTwelve = outputList.get(12);
         
         assertEquals(Long.valueOf(12L), outputTwelve.getId());
-        assertEquals("First Name Test0", outputTwelve.getAuthor());
-        assertEquals("Last Name Test0", outputTwelve.getLaunchDate());
-        assertEquals("Addres Test0", outputTwelve.getTitle());
-        assertEquals("Male", outputTwelve.getPrice());
+        assertEquals("Author12", outputTwelve.getAuthor());
+        assertEquals("Title12", outputTwelve.getTitle());
+        assertEquals(20.00 + 12, outputTwelve.getPrice());
     }
 }
