@@ -56,7 +56,7 @@ public class PersonController {
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Finds a person",
 	description = "Finds a person",
-	tags = {"People"},
+	tags = {"Person"},
 	responses = {
 		@ApiResponse(description = "Success", responseCode = "200",
 			content = @Content(schema = @Schema(implementation = PersonDto.class))
