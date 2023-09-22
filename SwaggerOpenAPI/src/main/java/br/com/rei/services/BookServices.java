@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.rei.controllers.BookController;
-import br.com.rei.controllers.PersonController;
 import br.com.rei.data.dto.v1.BookDto;
 import br.com.rei.exceptions.RequiredObjectIsNullException;
 import br.com.rei.exceptions.ResourceNotFoundException;

@@ -36,7 +36,7 @@ public class BookMapperTest {
     	BookDto output = bookMapper.bookToBookDto(inputObject.mockEntity());
         assertEquals(Long.valueOf(0L), output.getKey());
         assertEquals("Author0", output.getAuthor());
-        assertEquals("Addres Test0", output.getTitle());
+        assertEquals("Title0", output.getTitle());
         assertEquals(20.00 + 0, output.getPrice());
     }
 

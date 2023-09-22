@@ -39,6 +39,7 @@ public class MockBook {
         book.setAuthor("Author" + number);
         book.setLaunchDate(new Date());
         book.setTitle("Title" + number);
+        book.setId(number.longValue());
         book.setPrice(20.00 + number);
         return book;
     }
