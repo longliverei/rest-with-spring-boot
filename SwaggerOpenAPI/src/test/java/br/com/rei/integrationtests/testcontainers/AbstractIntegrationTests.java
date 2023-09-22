@@ -14,8 +14,8 @@ import org.testcontainers.lifecycle.Startables;
 @ContextConfiguration(initializers = AbstractIntegrationTests.Initializer.class)
 public class AbstractIntegrationTests {
 
-	public class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-		static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.1.0");
+	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+		static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.34");
 		
 		private static void startContainers() {
 			Startables.deepStart(Stream.of(mysql)).join();
