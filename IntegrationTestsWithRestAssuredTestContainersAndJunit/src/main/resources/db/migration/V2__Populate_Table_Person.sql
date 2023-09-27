@@ -1,0 +1,1 @@
+INSERT INTO `person` VALUES (3,'Rei','Yabiku','São Mateus','Male'),(5,'Reinaldo','Yabiku','zl fio','Male'),(6,'testname','testsurname','zl fio','Female');
